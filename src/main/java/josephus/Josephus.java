@@ -17,6 +17,7 @@ public class Josephus {
             if (toKill > (objects.length - 1)) {
                 toKill = toKill - (objects.length - 1);
             }
+
         }
         result.addAll(josephus);
         return result;
