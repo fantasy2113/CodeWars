@@ -10,14 +10,16 @@ public class Josephus {
         int toKill = k - 1;
         Object[] objects = items.toArray();
         while (!josephus.isEmpty()) {
+
+            if(toKill > (objects.length - 1)) {
+                objects = josephus.toArray();
+                toKill = k - 1;
+            }
+
             Object killed = objects[toKill];
             josephus.remove(killed);
             result.add((T) killed);
             toKill += k;
-            if (toKill > (objects.length - 1)) {
-                toKill = toKill - (objects.length - 1);
-            }
-
         }
         result.addAll(josephus);
         return result;
