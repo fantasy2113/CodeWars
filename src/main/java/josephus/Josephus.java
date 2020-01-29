@@ -5,21 +5,22 @@ import java.util.List;
 
 public class Josephus {
     public static <T> List<T> josephusPermutation(final List<T> items, final int k) {
-        List<T> result =  new ArrayList<>();
-        List<T> josephus =  new ArrayList<>(items);
+        List<T> result = new ArrayList<>();
+        List<T> josephus = new ArrayList<>(items);
+        int tmpK = k;
         int toKill = k - 1;
         Object[] objects = items.toArray();
-        while (!josephus.isEmpty()) {
+        while (josephus.size() != 1) {
 
-            if(toKill > (objects.length - 1)) {
-                objects = josephus.toArray();
+            if (toKill > (objects.length - 1)) {
                 toKill = k - 1;
+                toKill++;
             }
 
             Object killed = objects[toKill];
             josephus.remove(killed);
             result.add((T) killed);
-            toKill += k;
+            toKill += tmpK;
         }
         result.addAll(josephus);
         return result;
