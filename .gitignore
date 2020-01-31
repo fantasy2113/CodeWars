@@ -1,3 +1,7 @@
 /target/
 /.idea/**
 /code-wars.iml
+.classpath
+.project
+.settings/++
+
