@@ -8,26 +8,46 @@ public class Josephus {
         if (k == 1) {
             return items;
         }
+        
         List<T> killed = new ArrayList<>();
         List<T> josephus = new ArrayList<>(items);
+        final Object[] objects = getItems(items);
+        
         int next = k;
-        int offset = 1;
-        int start = k - 1;
-
-
-        Object[] objects = items.toArray();
-        final int n = objects.length;
+        int start = k;
+        final int n = objects.length - 1;
+        
         while (josephus.size() != 1) {
-            int store = -1;
+        	int lastKilled = -1;
             for (int kill = start; kill < objects.length; kill += next) {
                 killed.add((T) objects[kill]);
                 josephus.remove(objects[kill]);
-                store = kill;
+                lastKilled = kill;
             }
-            start = (store + next) - n;
-            next += next;
+            
+            start = (lastKilled + next) - n;
+            
+            if(start < 0) {
+            	start = start * -1;
+            }
+            
+            if(killed.contains(start)) {
+            	start++;
+            }
+            
+            next = next * 2;
         }
+        
         killed.addAll(josephus);
         return killed;
+    }
+    
+    private static <T> Object[] getItems(final List<T> items) {
+    	Object[] objects = new Object[items.size() + 1];
+    	objects[0] = 0;
+    	for (int i = 1; i < objects.length; i++) {
+    		objects[i] = items.get(i - 1);
+		}
+    	return objects;
     }
 }
