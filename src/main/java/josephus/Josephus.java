@@ -27,10 +27,6 @@ public class Josephus {
             
             start = (lastKilled + next) - n;
             
-            if(start < 0) {
-            	start = start * -1;
-            }
-            
             if(killed.contains(start)) {
             	start++;
             }
